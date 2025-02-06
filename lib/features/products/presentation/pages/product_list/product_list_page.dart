@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:onr_technical_test/core/utils/app_colors.dart';
-import 'package:onr_technical_test/features/products/domain/use_cases/get_product_by_id_use_case.dart';
-import 'package:onr_technical_test/features/products/domain/use_cases/get_products_use_case.dart';
+
 import 'package:onr_technical_test/features/products/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:onr_technical_test/features/products/presentation/pages/product_list/widgets/product_card.dart';
 import 'package:onr_technical_test/injection_container.dart';

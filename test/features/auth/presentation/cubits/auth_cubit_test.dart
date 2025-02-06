@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:onr_technical_test/core/error_handling/exception.dart';
-import 'package:onr_technical_test/core/error_handling/failure.dart';
 import 'package:onr_technical_test/core/use_case/login_params.dart';
 import 'package:onr_technical_test/features/auth/domain/entities/login_response_entity.dart';
 import 'package:onr_technical_test/features/auth/domain/use_cases/login_use_case.dart';
@@ -19,7 +18,7 @@ void main() {
   setUp(() {
     mockLoginUseCase = MockLoginUseCase();
     authCubit = AuthCubit(mockLoginUseCase);
-    registerFallbackValue(LoginParams(email: '', password: ''));
+    registerFallbackValue(const LoginParams(email: '', password: ''));
   });
 
   tearDown(() {
@@ -37,7 +36,7 @@ void main() {
       'should emit [AuthLoading, AuthLoaded] when login is successful',
       build: () {
         when(() => mockLoginUseCase(any<LoginParams>()))
-            .thenAnswer((_) async => Right(loginResponse));
+            .thenAnswer((_) async => const Right(loginResponse));
         return authCubit;
       },
       act: (cubit) => cubit.login('email', 'password'),
@@ -60,7 +59,7 @@ void main() {
       act: (cubit) => cubit.login('email', 'password'),
       expect: () => [
         AuthLoading(),
-        AuthError(''),
+        const AuthError(''),
       ],
     );
   });

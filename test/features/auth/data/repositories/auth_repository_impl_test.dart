@@ -6,7 +6,6 @@ import 'package:onr_technical_test/core/error_handling/exception.dart';
 import 'package:onr_technical_test/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:onr_technical_test/features/auth/data/models/login_response_model.dart';
 import 'package:onr_technical_test/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:onr_technical_test/features/auth/domain/entities/login_response_entity.dart';
 import 'package:onr_technical_test/features/auth/domain/repository/auth_repository.dart';
 
 class MockAuthRemoteDataSource extends Mock implements AuthRemoteDataSource {}
