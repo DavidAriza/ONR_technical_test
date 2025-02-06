@@ -47,22 +47,17 @@ void main() {
               any(),
               data: any(named: 'data'),
             ))
-        .thenThrow(DioException(
+        .thenThrow(DioFailure.decode(DioException(
             requestOptions: RequestOptions(path: ''),
             response: Response(
-                data: {'error': 'error'},
-                statusCode: 400,
-                requestOptions: RequestOptions(path: ''))));
+                requestOptions: RequestOptions(path: ''), statusCode: 400))));
 
     ///Act
-    Object? error;
     try {
       await dataSource.login('email', 'password');
     } catch (e) {
-      error = e;
+      ///Assert
+      expect(e, isA<DioFailure>());
     }
-
-    ///Assert
-    expect(error, isA<DioFailure>());
   });
 }
