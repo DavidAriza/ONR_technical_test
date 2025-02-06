@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:onr_technical_test/features/auth/domain/use_cases/login_use_case.dart';
 import 'package:onr_technical_test/features/auth/presentation/cubits/auth_cubit/auth_cubit.dart';
 import 'package:onr_technical_test/features/auth/presentation/pages/login/login_page.dart';
+import 'package:onr_technical_test/features/products/domain/use_cases/get_product_by_id_use_case.dart';
+import 'package:onr_technical_test/features/products/domain/use_cases/get_products_use_case.dart';
+import 'package:onr_technical_test/features/products/presentation/cubits/products_cubit/products_cubit.dart';
 import 'package:onr_technical_test/features/products/presentation/pages/product_detail/product_detail_page.dart';
 import 'package:onr_technical_test/features/products/presentation/pages/product_list/product_list_page.dart';
 import 'package:onr_technical_test/injection_container.dart';
@@ -20,7 +23,12 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/products',
       name: '/products',
-      builder: (context, state) => const ProductListPage(),
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            ProductsCubit(sl<GetProductsUseCase>(), sl<GetProductByIdUseCase>())
+              ..fetchProducts(),
+        child: const ProductListPage(),
+      ),
       routes: [
         GoRoute(
           path: ':id',
@@ -32,5 +40,5 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
   ],
-  initialLocation: '/login', // Start with the login screen
+  initialLocation: '/login',
 );

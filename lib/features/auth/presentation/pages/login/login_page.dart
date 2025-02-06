@@ -79,12 +79,14 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: <Widget>[
                       AppTextFormField(
+                        key: const ValueKey('email-field'),
                         controller: _emailController,
                         labelText: 'Email',
                         validator: (value) => Validators.validateEmail(value),
                       ),
                       const SizedBox(height: 16.0),
                       AppTextFormField(
+                          key: const ValueKey('password-field'),
                           controller: _passwordController,
                           labelText: 'Password',
                           validator: (value) =>
@@ -92,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: true),
                       const SizedBox(height: 24.0),
                       ElevatedButton(
+                        key: const ValueKey('login-button'),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             context.read<AuthCubit>().login(

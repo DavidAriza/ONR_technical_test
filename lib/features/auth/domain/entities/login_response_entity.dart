@@ -1,4 +1,6 @@
-class LoginResponseEntity {
+import 'package:equatable/equatable.dart';
+
+class LoginResponseEntity extends Equatable {
   final int id;
   final String email;
   final String? token;
@@ -8,4 +10,8 @@ class LoginResponseEntity {
     required this.email,
     this.token,
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, email, token];
 }

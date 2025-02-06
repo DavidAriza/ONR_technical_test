@@ -18,7 +18,7 @@ class ProductCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16.0),
       color: AppColors.cardBackground,
       surfaceTintColor: Colors.transparent,
-      elevation: 4, // Add shadow
+      elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(

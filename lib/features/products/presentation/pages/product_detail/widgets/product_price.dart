@@ -15,7 +15,7 @@ class ProductPrice extends StatelessWidget {
       style: const TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
-        color: Colors.green, // Green for the price
+        color: Colors.green,
       ),
     );
   }

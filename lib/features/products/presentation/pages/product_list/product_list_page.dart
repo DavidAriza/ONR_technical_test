@@ -29,56 +29,17 @@ class ProductListPage extends StatelessWidget {
       ),
       body: Container(
         color: AppColors.background,
-        child: BlocProvider(
-          create: (context) => ProductsCubit(
-              sl<GetProductsUseCase>(), sl<GetProductByIdUseCase>())
-            ..fetchProducts(),
-          child: BlocBuilder<ProductsCubit, ProductsState>(
-            builder: (context, state) {
-              if (state is ProductsLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.primary,
-                  ),
-                );
-              } else if (state is ProductsLoaded) {
-                if (state.products.isEmpty) {
-                  return const Center(
-                    child: Text(
-                      'No products found',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  );
-                }
-                return ListView.builder(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 16.0),
-                  itemCount: state.products.length,
-                  itemBuilder: (context, index) {
-                    final product = state.products[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: ProductCard(
-                        product: product,
-                        onTap: () => context.push('/products/${product.id}'),
-                      ),
-                    );
-                  },
-                );
-              } else if (state is ProductsError) {
-                return Center(
-                  child: Text(
-                    state.message,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.red,
-                    ),
-                  ),
-                );
-              } else {
+        child: BlocBuilder<ProductsCubit, ProductsState>(
+          bloc: sl<ProductsCubit>(),
+          builder: (context, state) {
+            if (state is ProductsLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.primary,
+                ),
+              );
+            } else if (state is ProductsLoaded) {
+              if (state.products.isEmpty) {
                 return const Center(
                   child: Text(
                     'No products found',
@@ -89,8 +50,43 @@ class ProductListPage extends StatelessWidget {
                   ),
                 );
               }
-            },
-          ),
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 16.0, horizontal: 16.0),
+                itemCount: state.products.length,
+                itemBuilder: (context, index) {
+                  final product = state.products[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: ProductCard(
+                      product: product,
+                      onTap: () => context.push('/products/${product.id}'),
+                    ),
+                  );
+                },
+              );
+            } else if (state is ProductsError) {
+              return Center(
+                child: Text(
+                  state.message,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.red,
+                  ),
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text(
+                  'No products found',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey,
+                  ),
+                ),
+              );
+            }
+          },
         ),
       ),
     );
